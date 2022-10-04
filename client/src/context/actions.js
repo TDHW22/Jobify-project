@@ -2,8 +2,8 @@ export const DISPLAY_ALERT = "SHOW_ALERT";
 
 export const CLEARE_ALERT = "HIDE_ALERT";
 
-export const REGISTER_USER_BEING = "REGISTER";
+export const REGISTER_USER_BEGIN = "REGISTER_USER_BEGIN";
 
-export const SUCCESS = "SUCCESS";
+export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
 
-export const ERROR = "ERROR";
+export const REGISTER_USER_ERROR = "REGISTER_USER_ERROR";
