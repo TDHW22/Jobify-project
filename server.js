@@ -1,4 +1,6 @@
 import express from "express";
+//importing async error depndancy for error handling
+import "express-async-errors";
 //dotenv for enviroment variables
 import dotenv from "dotenv";
 dotenv.config();
