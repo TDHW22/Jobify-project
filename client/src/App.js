@@ -7,9 +7,9 @@ function App() {
   return (
     <BrowserRouter>
       <nav>
-        {/* <Link to="/">Dashboard</Link>
+        <Link to="/">Dashboard</Link>
         <Link to="/register">Register</Link>
-        <Link to="/landing">Landing</Link> */}
+        <Link to="/landing">Landing</Link>
       </nav>
       {/* creating the routes */}
       <Routes>

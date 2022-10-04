@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "client": "npm start --prefix client",
-    "server": "nodemon server --ignore client"
+    "server": "nodemon server --ignore client",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "author": "TDHW22",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "nodemon": "^2.0.20"
   }
 }

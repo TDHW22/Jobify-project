@@ -9,6 +9,9 @@ const initalState = {
   showAlert: false,
   alertText: "",
   alertType: "",
+  user: null,
+  token: null,
+  location: "",
 };
 
 const AppContext = React.createContext();

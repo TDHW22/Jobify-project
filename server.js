@@ -20,8 +20,11 @@ import errorHandlerMiddleware from "./middleware/error-handler.js";
 //json parser middleware
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("welcome!");
+// app.get("/", (req, res) => {
+//   res.json({ msg: "welcome!" });
+// });
+app.get("/api/v1", (req, res) => {
+  res.json({ msg: "welcome!" });
 });
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", jobsRouter);
@@ -34,7 +37,7 @@ const port = process.env.PORT || 5000;
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
-    app.listen(port, () => console.log(`app is listening on port: ${port}`));
+    app.listen(port, () => console.log(`Server is listening on port: ${port}`));
   } catch (error) {
     console.log(error);
   }
