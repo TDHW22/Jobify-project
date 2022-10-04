@@ -2,6 +2,8 @@
 import mongoose from "mongoose";
 //importing validator dependancy
 import validator from "validator";
+//importing bcryptjs for hashing passwords
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -37,6 +39,12 @@ const UserSchema = new mongoose.Schema({
     default: "Location",
     maxlength: 20,
   },
+});
+
+UserSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
 export default mongoose.model("Users", UserSchema);
