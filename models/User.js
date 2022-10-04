@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import validator from "validator";
 //importing bcryptjs for hashing passwords
 import bcrypt from "bcryptjs";
+//importing jsonwebtoken for jwt
+import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -26,6 +28,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide an email"],
     minlength: 6,
+    select: false,
   },
   lastName: {
     type: String,
@@ -46,5 +49,11 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+UserSchema.methods.createJWT = function () {
+  return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_LIFETIME,
+  });
+};
 
 export default mongoose.model("Users", UserSchema);
