@@ -34,6 +34,7 @@ const Register = () => {
       return;
     }
 
+    //creating a current user for comparation in login or registration and ivoke setupUser function from AppContext.js
     const currentUser = { name, email, password };
     if (isMember) {
       setupUser({

@@ -56,6 +56,7 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("location");
   };
 
+  //Creating an axios request to login/register user
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
     dispatch(SETUP_USER_BEGIN);
     try {
