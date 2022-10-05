@@ -46,7 +46,7 @@ const login = async (req, res) => {
 
   user.password = undefined;
 
-  console.log({ user });
+  // console.log({ user });
   res.status(StatusCodes.OK).json({ user, token, location: user.location });
 };
 const updateUser = async (req, res) => {

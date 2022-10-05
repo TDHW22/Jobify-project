@@ -1,15 +1,22 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/SharedLayout";
+import { Navbar, SmallSidebar, BigSidebar } from "../../components";
+
 //Creating shared layout for protected routes
 function SharedLayout() {
   return (
     <Wrapper>
-      <nav>
-        <Link to="Add-Job">Add Job</Link>
-        <Link to="All-Jobs">All Jobs</Link>
-      </nav>
-      <Outlet />
+      <main className="dashboard">
+        <SmallSidebar />
+        <BigSidebar />
+        <div>
+          <Navbar />
+          <div className="dashboard-page">
+            <Outlet />
+          </div>
+        </div>
+      </main>
     </Wrapper>
   );
 }

@@ -1,13 +1,13 @@
 import {
   DISPLAY_ALERT,
   CLEARE_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from "./actions";
+import { initalState } from "./AppContext";
 
 const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -55,6 +55,21 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: "danger",
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === TOGGLE_SIDEBAR) {
+    return {
+      ...state,
+      showSidebar: !state.showSidebar,
+    };
+  }
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...initalState,
+      user: null,
+      token: null,
+      userLocation: "",
+      jobLocation: "",
     };
   }
 
