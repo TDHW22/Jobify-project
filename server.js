@@ -6,7 +6,8 @@ import dotenv from "dotenv";
 dotenv.config();
 //creating an express app
 const app = express();
-
+//importing morgan for logging requests
+import morgan from "morgan";
 //importing database connection
 import connectDB from "./db/connect.js";
 
@@ -18,6 +19,9 @@ import jobsRouter from "./routes/jobsRoutes.js";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 //json parser middleware
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 app.use(express.json());
 
 // app.get("/", (req, res) => {
