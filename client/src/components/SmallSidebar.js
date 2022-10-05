@@ -3,7 +3,7 @@ import Wrapper from "../assets/wrappers/SmallSidebar";
 import { FaTimes } from "react-icons/fa";
 import { useAppContext } from "../context/AppContext";
 import links from "../utils/links";
-import { NavLink } from "react-router-dom";
+import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 
 function SmallSidebar() {
@@ -22,24 +22,7 @@ function SmallSidebar() {
           <header>
             <Logo />
           </header>
-          <div className="nav-links">
-            {links.map((link) => {
-              const { id, text, path, icon } = link;
-              return (
-                <NavLink
-                  to={path}
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                  key={id}
-                  onClick={toggleSidebar}
-                >
-                  <span className="icon">{icon}</span>
-                  {text}
-                </NavLink>
-              );
-            })}
-          </div>
+          <NavLinks />
         </div>
       </div>
     </Wrapper>
