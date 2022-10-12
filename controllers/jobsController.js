@@ -1,9 +1,17 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError } from "../errors/index.js";
-import User from "../models/User.js";
+import Job from "../models/Job.js";
 
 const createJob = async (req, res) => {
-  res.send("Create Job");
+  const { position, company } = req.body;
+  if (!position || !company) {
+    throw new BadRequestError("Please Provide All Values");
+  }
+
+  req.body.createdBy = req.user.userId;
+
+  const job = await Job.create(req.body);
+  res.status(StatusCodes.CREATED).json({ job });
 };
 const deleteJob = async (req, res) => {
   res.send("Delete Job");
