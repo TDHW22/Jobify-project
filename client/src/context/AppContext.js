@@ -38,8 +38,29 @@ const AppProvider = ({ children }) => {
   //axios
   const authFetch = axios.create({
     baseURL: "api/v1",
-    headers: { Authorization: `Bearer ${state.token}` },
   });
+  //request
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.authorization = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      console.log(error.response);
+      if (error.response.status === 401) {
+        console.log("AUTH ERROR");
+      }
+      return Promise.reject(error);
+    }
+  );
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
