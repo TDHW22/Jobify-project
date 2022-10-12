@@ -12,7 +12,11 @@ import {
   SETUP_USER_ERROR,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
 } from "./actions";
+import { MdOutlineLocationCity } from "react-icons/md";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -49,6 +53,7 @@ const AppProvider = ({ children }) => {
       return Promise.reject(error);
     }
   );
+  //response
   authFetch.interceptors.response.use(
     (response) => {
       return response;
@@ -56,7 +61,7 @@ const AppProvider = ({ children }) => {
     (error) => {
       console.log(error.response);
       if (error.response.status === 401) {
-        console.log("AUTH ERROR");
+        logoutUser();
       }
       return Promise.reject(error);
     }
@@ -95,11 +100,13 @@ const AppProvider = ({ children }) => {
       });
       addUserToLocalStorage({ user, token, location });
     } catch (error) {
-      console.log(error.response);
-      dispatch({
-        type: SETUP_USER_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      if (error.response.status !== 401) {
+        console.log(error.response);
+        dispatch({
+          type: SETUP_USER_ERROR,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
     clearAlert();
   };
@@ -116,10 +123,24 @@ const AppProvider = ({ children }) => {
   const updateUser = async (currentUser) => {
     try {
       const { data } = await authFetch.patch("auth/updateUser", currentUser);
-      console.log(data);
+      const { user, location, token } = data;
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: {
+          user,
+          location,
+          token,
+        },
+      });
+      addUserToLocalStorage({ user, location, token });
     } catch (error) {
-      console.log(error.response);
+      dispatch({
+        type: UPDATE_USER_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
     }
+    clearAlert();
   };
 
   return (
