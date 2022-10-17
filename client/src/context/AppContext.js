@@ -15,8 +15,12 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_ERROR,
+  CREATE_JOB_SUCCESS,
 } from "./actions";
-import { MdOutlineLocationCity } from "react-icons/md";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -30,8 +34,16 @@ const initalState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || "",
-  jobLocation: userLocation || "",
   showSidebar: false,
+  isEditing: false,
+  editJobId: "",
+  position: "",
+  company: "",
+  jobLocation: userLocation || "",
+  jobTypeOptions: ["full-time", "part-time", "remote", "intership"],
+  jobType: "full-time",
+  statusOptions: ["interview", "declined", "pending"],
+  status: "pending",
 };
 
 const AppContext = React.createContext();
@@ -121,6 +133,7 @@ const AppProvider = ({ children }) => {
   };
 
   const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN });
     try {
       const { data } = await authFetch.patch("auth/updateUser", currentUser);
       const { user, location, token } = data;
@@ -143,6 +156,15 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  //Globaly updating inputs states
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+  //Clearing inputs values
+  const clearValues = () => {
+    dispatch({ type: CLEAR_VALUES });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -152,6 +174,8 @@ const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChange,
+        clearValues,
       }}
     >
       {children}
