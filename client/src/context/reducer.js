@@ -125,6 +125,28 @@ const reducer = (state, action) => {
     return { ...state, ...initialState };
   }
 
+  if (action.type === CREATE_JOB_BEGIN) {
+    return { ...state, isLoading: true };
+  }
+
+  if (action.type === CREATE_JOB_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      alertType: "success",
+      alertText: "New Job Created",
+    };
+  }
+
+  if (action.type === CREATE_JOB_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+
   // throw new Error(`No such action: ${action.type}`);
 };
 

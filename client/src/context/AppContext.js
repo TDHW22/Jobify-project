@@ -21,6 +21,7 @@ import {
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
 } from "./actions";
+import { MdArrowUpward } from "react-icons/md";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -102,7 +103,7 @@ const AppProvider = ({ children }) => {
 
   //Creating an axios request to login/register user
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
-    dispatch(SETUP_USER_BEGIN);
+    dispatch({ type: SETUP_USER_BEGIN });
     try {
       const { data } = await axios.post(`api/v1/auth/${endPoint}`, currentUser);
       const { user, token, location } = data;
@@ -165,6 +166,28 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_VALUES });
   };
 
+  const createJob = async () => {
+    dispatch({ type: CREATE_JOB_BEGIN });
+    try {
+      const { position, company, jobLocation, jobType } = state;
+      await authFetch.post("/jobs", {
+        position,
+        company,
+        jobLocation,
+        jobType,
+      });
+      dispatch({ type: CREATE_JOB_SUCCESS });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === 401) return;
+      dispatch({
+        type: CREATE_JOB_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -176,6 +199,7 @@ const AppProvider = ({ children }) => {
         updateUser,
         handleChange,
         clearValues,
+        createJob,
       }}
     >
       {children}
