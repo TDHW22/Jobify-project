@@ -20,8 +20,9 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
 } from "./actions";
-import { MdArrowUpward } from "react-icons/md";
 
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -45,6 +46,10 @@ const initalState = {
   jobType: "full-time",
   statusOptions: ["interview", "declined", "pending"],
   status: "pending",
+  jobs: [],
+  totalJobs: 0,
+  numberOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
@@ -169,12 +174,13 @@ const AppProvider = ({ children }) => {
   const createJob = async () => {
     dispatch({ type: CREATE_JOB_BEGIN });
     try {
-      const { position, company, jobLocation, jobType } = state;
+      const { position, company, jobLocation, jobType, status } = state;
       await authFetch.post("/jobs", {
         position,
         company,
         jobLocation,
         jobType,
+        status,
       });
       dispatch({ type: CREATE_JOB_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
@@ -184,6 +190,24 @@ const AppProvider = ({ children }) => {
         type: CREATE_JOB_ERROR,
         payload: { msg: error.response.data.msg },
       });
+    }
+    clearAlert();
+  };
+
+  const getJobs = async () => {
+    let url = `/jobs`;
+
+    dispatch({ type: GET_JOBS_BEGIN });
+    try {
+      const { data } = await authFetch(url);
+      const { jobs, totalJobs, numberOfPages } = data;
+      dispatch({
+        type: GET_JOBS_SUCCESS,
+        payload: { jobs, totalJobs, numberOfPages },
+      });
+    } catch (error) {
+      console.log(error.response);
+      logoutUser();
     }
     clearAlert();
   };
@@ -200,6 +224,7 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createJob,
+        getJobs,
       }}
     >
       {children}
