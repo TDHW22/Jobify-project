@@ -19,7 +19,7 @@ const getAllJobs = async (req, res) => {
 
   res
     .status(StatusCodes.OK)
-    .json({ jobs, totalJobs: jobs.length, numOfPages: 1 });
+    .json({ jobs, totalJobs: jobs.length, numberOfPages: 1 });
 };
 
 const updateJob = async (req, res) => {

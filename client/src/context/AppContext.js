@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useEffect } from "react";
 //importing axios to be able to make a request
 import axios from "axios";
 
@@ -207,10 +207,14 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log(error.response);
-      logoutUser();
+      // logoutUser();
     }
     clearAlert();
   };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
 
   return (
     <AppContext.Provider
