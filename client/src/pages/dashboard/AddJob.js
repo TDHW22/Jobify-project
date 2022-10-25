@@ -16,6 +16,7 @@ function AddJob() {
     status,
     statusOptions,
     isEditing,
+    editJob,
     handleChange,
     clearValues,
     createJob,
@@ -29,6 +30,7 @@ function AddJob() {
       return;
     }
     if (isEditing) {
+      editJob();
       return;
     }
     createJob();
