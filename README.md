@@ -14,5 +14,5 @@ Project in Action - [Jobify]()
 
 #### For MOCK_DATA and Population
 
--add for each job in MOCK_DATA.json a createdBy id
+-add for each job in MOCK_DATA.json a createdBy id (or create your own in https://mockaroo.com/)
 -run in CLI node populate.js
