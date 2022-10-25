@@ -11,3 +11,8 @@ Project in Action - [Jobify]()
 - create .env file with -MONGO_URL, JWT_SECRET, JWT_LIFETIME
 - npm start
 - visit https://localhost:3000/
+
+#### For MOCK_DATA and Population
+
+-add for each job in MOCK_DATA.json a createdBy id
+-run in CLI node populate.js
