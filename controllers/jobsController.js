@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError } from "../errors/index.js";
 import Job from "../models/Job.js";
+import checkPermissions from "../utils/checkPermissions.js";
 
 const createJob = async (req, res) => {
   const { position, company } = req.body;
@@ -37,6 +38,11 @@ const updateJob = async (req, res) => {
     throw new NotFoundError(`no job with id ${jobId}`);
   }
 
+  console.log(typeof req.user.userId);
+  console.log(typeof job.createdBy);
+
+  checkPermissions(req.user, job.createdBy);
+
   const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
     new: true,
     runValidators: true,
@@ -46,7 +52,22 @@ const updateJob = async (req, res) => {
 };
 
 const deleteJob = async (req, res) => {
-  res.send("Delete Job");
+  const { id: jobId } = req.params;
+
+  const job = await Job.findOne({ _id: jobId });
+
+  if (!job) {
+    throw new NotFoundError(`no job with id ${jobId}`);
+  }
+
+  console.log(typeof req.user.userId);
+  console.log(typeof job.createdBy);
+
+  checkPermissions(req.user, job.createdBy);
+
+  await Job.remove();
+
+  res.status(StatusCodes.OK).json({ msg: "success" });
 };
 const showStats = async (req, res) => {
   res.send("Show Stats");
