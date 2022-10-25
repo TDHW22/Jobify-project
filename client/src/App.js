@@ -1,5 +1,5 @@
 //importing  the router dom
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 //importing the pages
 import { Error, Landing, Register, ProtectedRoute } from "./pages";
 import {

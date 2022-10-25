@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from "react";
+import React, { useContext, useReducer } from "react";
 //importing axios to be able to make a request
 import axios from "axios";
 
@@ -212,10 +212,13 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  useEffect(() => {
-    getJobs();
-  }, []);
+  const setEditJob = (id) => {
+    console.log(`set edit job : ${id}`);
+  };
 
+  const deleteJob = (id) => {
+    console.log(`set delete job : ${id}`);
+  };
   return (
     <AppContext.Provider
       value={{
@@ -229,6 +232,8 @@ const AppProvider = ({ children }) => {
         clearValues,
         createJob,
         getJobs,
+        setEditJob,
+        deleteJob,
       }}
     >
       {children}

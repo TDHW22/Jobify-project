@@ -2,7 +2,6 @@ import React from "react";
 import Wrapper from "../assets/wrappers/SmallSidebar";
 import { FaTimes } from "react-icons/fa";
 import { useAppContext } from "../context/AppContext";
-import links from "../utils/links";
 import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 
