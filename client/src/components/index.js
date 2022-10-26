@@ -7,6 +7,9 @@ import BigSidebar from "./BigSidebar";
 import FormRowSelect from "./FormRowSelect";
 import SearchContainer from "./SearchContainer";
 import JobsContainer from "./JobsContainer";
+import ChartsContainer from "./ChartsContainer";
+import StatsContainer from "./StatsContainer";
+import Loading from "./Loading";
 //importing components for exporting for single import in future use
 export {
   Logo,
@@ -18,4 +21,7 @@ export {
   BigSidebar,
   SearchContainer,
   JobsContainer,
+  ChartsContainer,
+  StatsContainer,
+  Loading,
 };
