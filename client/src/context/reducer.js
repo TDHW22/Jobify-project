@@ -145,6 +145,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      showAlert: true,
       alertType: "success",
       alertText: "New Job Created",
     };
