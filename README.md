@@ -1,8 +1,14 @@
 # Jobify
 
+#### Video Demo: <URL HERE>
+
+#### Description:
+
+Full MERN stack project that enables you to record you job applications with graphs to showcase the last 6 moths.
+
 #### Track Your Job Search
 
-Project in Action - [Jobify]()
+Project in Action - [Jobify](https://jobify-project-tom.herokuapp.com/)
 
 #### Run The App Locally
 
