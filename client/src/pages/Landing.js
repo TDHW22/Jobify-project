@@ -17,6 +17,10 @@ const Landing = () => {
             job <span>tracking</span> app
           </h1>
           <p>This site is a site for tracking job applications.</p>
+          <p>
+            You can choose the demo user but take in mind that you cant edit any
+            information for that i recommend you register.
+          </p>
           <Link to="/register" className="btn btn-hero">
             Login/Register
           </Link>
